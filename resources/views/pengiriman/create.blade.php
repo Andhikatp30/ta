@@ -41,7 +41,7 @@
                 <select name="id_barang" id="id_barang" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 white:bg-gray-700 white:border-gray-600 white:placeholder-gray-400 white:text-white white:focus:ring-blue-500 white:focus:border-blue-500" required>
                     <option value="" disabled selected>Pilih barang...</option>
                     @foreach($barangs as $barang)
-                        <option value="{{ $barang->id }}">{{ $barang->nama_barang }} - {{ $barang->nama_instansi }}</option>
+                        <option value="{{ $barang->id }}">{{ $barang->nama_barang }} - {{ $barang->nama_instansi }} - {{ $barang->jenis_barang }}</option>
                     @endforeach
                 </select>
             </div>
@@ -51,7 +51,7 @@
                 <select name="kurir_id" id="kurir_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 white:bg-gray-700 white:border-gray-600 white:placeholder-gray-400 white:text-white white:focus:ring-blue-500 white:focus:border-blue-500" required>
                     <option value="" disabled selected>Pilih kurir...</option>
                     @foreach($kurirs as $kurir)
-                        <option value="{{ $kurir->id }}">{{ $kurir->nama }}</option>
+                        <option value="{{ $kurir->id }}">{{ $kurir->nama }} - {{ $kurir->jenis_barang }}</option>
                     @endforeach
                 </select>
             </div>
@@ -99,43 +99,48 @@
 
                             <!-- Modal untuk Edit -->
                             <div class="modal fade" id="editModal-{{ $pengiriman->id }}" tabindex="-1" aria-labelledby="editModalLabel-{{ $pengiriman->id }}" aria-hidden="true">
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                                     <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="editModalLabel-{{ $pengiriman->id }}">Edit Pengiriman</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <div class="modal-header bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-t-lg shadow-md">
+                                            <h5 class="modal-title font-semibold" id="editModalLabel-{{ $pengiriman->id }}">Edit Pengiriman</h5>
+                                            <button type="button" class="btn-close text-white bg-transparent hover:bg-red-600 hover:rounded-full transition duration-300 ease-in-out" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
+                                        <div class="modal-body bg-gray-50 p-6 rounded-b-lg">
                                             <form action="{{ route('pengiriman.update', $pengiriman->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
 
                                                 <div class="mb-4">
                                                     <label for="id_barang" class="block text-sm font-medium text-gray-700">Pilih Barang</label>
-                                                    <select name="id_barang" id="id_barang" class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                    <select name="id_barang" id="id_barang" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                                                         @foreach($barangs as $barang)
-                                                            <option value="{{ $barang->id }}" {{ $pengiriman->id_barang == $barang->id ? 'selected' : '' }}>{{ $barang->nama_barang }} - {{ $barang->nama_instansi }}</option>
+                                                            <option value="{{ $barang->id }}" {{ $pengiriman->id_barang == $barang->id ? 'selected' : '' }}>{{ $barang->nama_barang }} - {{ $barang->nama_instansi }} - {{ $barang->jenis_barang }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
 
                                                 <div class="mb-4">
                                                     <label for="kurir_id" class="block text-sm font-medium text-gray-700">Pilih Kurir</label>
-                                                    <select name="kurir_id" id="kurir_id" class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                    <select name="kurir_id" id="kurir_id" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
                                                         @foreach($kurirs as $kurir)
-                                                            <option value="{{ $kurir->id }}" {{ $pengiriman->kurir_id == $kurir->id ? 'selected' : '' }}>{{ $kurir->nama }}</option>
+                                                            <option value="{{ $kurir->id }}" {{ $pengiriman->kurir_id == $kurir->id ? 'selected' : '' }}>{{ $kurir->nama }} - {{ $kurir->jenis_barang }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
 
                                                 <div class="mb-4">
                                                     <label for="status_pengiriman" class="block text-sm font-medium text-gray-700">Status Pengiriman</label>
-                                                    <input type="text" name="status_pengiriman" id="status_pengiriman" value="{{ $pengiriman->status_pengiriman }}" class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                                                    <input type="text" name="status_pengiriman" id="status_pengiriman" value="{{ $pengiriman->status_pengiriman }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" required>
                                                 </div>
 
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                                    <button type="submit" class="btn btn-primary">Update Pengiriman</button>
+                                                <!-- <div class="mb-4">
+                                                    <label for="tanggal_pengiriman" class="block text-sm font-medium text-gray-700">Tanggal Pengiriman</label>
+                                                    <input type="date" name="tanggal_pengiriman" id="tanggal_pengiriman" value="{{ $pengiriman->created_at->format('Y-m-d') }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" required>
+                                                </div> -->
+
+                                                <div class="modal-footer justify-between bg-gray-100 rounded-b-lg p-4">
+                                                    <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition duration-300 ease-in-out transform hover:scale-105" data-bs-dismiss="modal">Tutup</button>
+                                                    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105">Update Pengiriman</button>
                                                 </div>
                                             </form>
                                         </div>

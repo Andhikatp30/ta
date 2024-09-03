@@ -20,14 +20,14 @@
 
         <!-- Tombol Print & Download PDF -->
         <div class="mb-6 text-right">
-            <button onclick="printAndDownloadPDF()" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-transform duration-300 transform hover:scale-105">
+            <button onclick="printAndDownloadPDF()" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-transform duration-300 transform hover:scale-105">
                 Print & Download PDF
             </button>
         </div>
 
         <div class="overflow-x-auto">
-            <table id="historiTable" class="min-w-full bg-white border-collapse border border-gray-200 rounded-lg shadow-md">
-                <thead class="bg-gray-800 text-white">
+            <table id="historiTable" class="min-w-full bg-white border-collapse border border-gray-300 rounded-lg shadow-md">
+                <thead class="bg-gray-900 text-white">
                     <tr>
                         <th class="w-1/7 px-4 py-2 text-sm md:text-base text-center">ID Pengiriman</th>
                         <th class="w-1/7 px-4 py-2 text-sm md:text-base text-center">ID Barang</th>
@@ -40,7 +40,7 @@
                 </thead>
                 <tbody>
                     @foreach ($pengirimens as $pengiriman)
-                        <tr class="hover:bg-gray-50 transition-colors duration-200">
+                        <tr class="hover:bg-gray-100 transition-colors duration-200">
                             <td class="border px-4 py-2 text-sm md:text-base text-center">{{ $pengiriman->id_pengiriman }}</td>
                             <td class="border px-4 py-2 text-sm md:text-base text-center">{{ $pengiriman->barang->id_barang }}</td>
                             <td class="border px-4 py-2 text-sm md:text-base text-center">{{ $pengiriman->kurir->nama }}</td>
@@ -49,9 +49,9 @@
                             <td class="border px-4 py-2 text-sm md:text-base text-center">{{ $pengiriman->barang->tanggal_kirim }}</td>
                             <td class="border px-4 py-2 text-sm md:text-base text-center">
                                 <span class="inline-block px-3 py-1 text-sm rounded-full
-                                @if($pengiriman->status_pengiriman == 'Dikirim') bg-yellow-500 text-white @endif
-                                @if($pengiriman->status_pengiriman == 'Selesai') bg-green-500 text-white @endif
-                                @if($pengiriman->status_pengiriman == 'Dibatalkan') bg-red-500 text-white @endif">
+                                @if($pengiriman->status_pengiriman == 'Dikirim') bg-yellow-600 text-white @endif
+                                @if($pengiriman->status_pengiriman == 'Selesai') bg-green-600 text-white @endif
+                                @if($pengiriman->status_pengiriman == 'Dibatalkan') bg-red-600 text-white @endif">
                                     {{ $pengiriman->status_pengiriman }}
                                 </span>
                             </td>
@@ -64,12 +64,20 @@
 
     <!-- Template Print untuk Logo dan Alamat -->
     <div id="printTemplate" class="hidden">
-        <div style="text-align: center; margin-bottom: 20px;">
-            <img src="{{ asset('storage/images/logo2.png') }}" alt="Logo Perusahaan" style="max-width: 150px; margin-bottom: 10px;">
-            <p style="font-size: 14px;">PT Sinergi Lintas Global</p>
-            <p style="font-size: 14px;">Jl. Swadaya Raya No.90, Bambu Apus, Kec. Cipayung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13890</p>
+        <div class="header-section" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; padding-top: 20px; border-bottom: 2px solid #ddd;">
+            <!-- Logo Perusahaan -->
+            <div class="logo-section" style="flex: 0 0 auto;">
+                <img src="{{ asset('storage/images/logo2.png') }}" alt="Logo Perusahaan" style="max-width: 150px;">
+            </div>
+            <!-- Nama dan Alamat Perusahaan -->
+            <div class="info-section" style="flex: 1; text-align: right; padding-left: 20px;">
+                <p style="font-size: 18px; font-weight: bold; margin: 0;">PT Sinergi Lintas Global</p>
+                <p style="font-size: 14px; margin: 0;">Jl. Swadaya Raya No.90, Bambu Apus, Kec. Cipayung</p>
+                <p style="font-size: 14px; margin: 0;">Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13890</p>
+                <p style="font-size: 14px; margin: 0;">Tel: (021) 123-4567 | Email: info@sinergilintasglobal.com</p>
+            </div>
         </div>
-        <div id="tableContainer">
+        <div id="tableContainer" style="padding-top: 20px;">
             <!-- Tabel pengiriman akan dimuat di sini -->
         </div>
     </div>
@@ -119,4 +127,53 @@
             });
         }
     </script>
+
+    <!-- Mobile Print Styles -->
+    <style>
+        @media print {
+            /* Ensure the header section is stacked for mobile devices */
+            .header-section {
+                display: block;
+                text-align: center;
+            }
+            .logo-section {
+                margin-bottom: 10px;
+            }
+            .info-section {
+                text-align: center;
+                padding-left: 0;
+            }
+
+            /* Adjust table layout for mobile devices */
+            table {
+                width: 100%;
+                font-size: 12px;
+            }
+            table th, table td {
+                padding: 8px;
+            }
+            table thead {
+                display: none;
+            }
+            table tbody tr {
+                display: block;
+                margin-bottom: 10px;
+            }
+            table tbody tr td {
+                display: block;
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+            table tbody tr td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 50%;
+                padding-left: 10px;
+                font-weight: bold;
+                text-align: left;
+            }
+        }
+    </style>
 @endsection

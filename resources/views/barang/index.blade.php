@@ -51,54 +51,55 @@
 
         <!-- Modal Tambah Barang -->
         <div class="modal fade" id="tambahBarangModal" tabindex="-1" aria-labelledby="tambahBarangModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="tambahBarangModalLabel">Tambah Barang</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-header bg-gradient-to-b from-sky-400 to-indigo-500 text-white rounded-t-lg shadow-md">
+                        <h5 class="modal-title font-semibold" id="tambahBarangModalLabel">Tambah Barang</h5>
+                        <button type="button" class="btn-close text-white bg-transparent hover:bg-red-600 hover:rounded-full transition duration-300 ease-in-out" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body bg-gray-50 p-6 rounded-b-lg">
                         <!-- Form Tambah Barang -->
                         <form id="formTambahBarang" action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="mb-4">
-                                <label class="block text-gray-700">Nama Barang</label>
-                                <input type="text" name="nama_barang" value="{{ old('nama_barang') }}" class="form-control">
+                                <label for="nama_barang" class="block text-sm font-medium text-gray-700">Nama Barang</label>
+                                <input type="text" name="nama_barang" id="nama_barang" value="{{ old('nama_barang') }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-lg" placeholder="Masukkan nama barang" required>
                                 @error('nama_barang')
                                     <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-4">
-                                <label class="block text-gray-700">Nama Instansi</label>
-                                <input type="text" name="nama_instansi" value="{{ old('nama_instansi') }}" class="form-control">
+                                <label for="nama_instansi" class="block text-sm font-medium text-gray-700">Nama Instansi</label>
+                                <input type="text" name="nama_instansi" id="nama_instansi" value="{{ old('nama_instansi') }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-lg" placeholder="Masukkan nama instansi" required>
                                 @error('nama_instansi')
                                     <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-4">
-                                <label class="block text-gray-700">Tanggal Kirim</label>
-                                <input type="date" name="tanggal_kirim" value="{{ old('tanggal_kirim') }}" class="form-control">
+                                <label for="tanggal_kirim" class="block text-sm font-medium text-gray-700">Tanggal Kirim</label>
+                                <input type="date" name="tanggal_kirim" id="tanggal_kirim" value="{{ old('tanggal_kirim') }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-lg" required>
                                 @error('tanggal_kirim')
                                     <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-4">
-                                <label class="block text-gray-700">Alamat Instansi</label>
-                                <input type="text" name="alamat_instansi" value="{{ old('alamat_instansi') }}" class="form-control">
+                                <label for="alamat_instansi" class="block text-sm font-medium text-gray-700">Alamat Instansi</label>
+                                <input type="text" name="alamat_instansi" id="alamat_instansi" value="{{ old('alamat_instansi') }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-lg" placeholder="Masukkan alamat instansi" required>
                                 @error('alamat_instansi')
                                     <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-4">
-                                <label class="block text-gray-700">Jenis Barang</label>
-                                <select name="jenis_barang" class="form-control">
+                                <label for="jenis_barang" class="block text-sm font-medium text-gray-700">Jenis Barang</label>
+                                <select name="jenis_barang" id="jenis_barang" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-lg" required>
+                                    <option value="" disabled selected>Pilih jenis barang...</option>
                                     @foreach($jenis_barangs as $jenis)
-                                        <option value="{{ $jenis->jenis_barang }}" {{ old('jenis_barang', $barang->jenis_barang ?? '') == $jenis->jenis_barang ? 'selected' : '' }}>
+                                        <option value="{{ $jenis->jenis_barang }}" {{ old('jenis_barang') == $jenis->jenis_barang ? 'selected' : '' }}>
                                             {{ $jenis->jenis_barang }}
                                         </option>
                                     @endforeach
@@ -109,21 +110,20 @@
                             </div>
 
                             <div class="mb-4">
-                                <label class="block mb-2 text-sm font-medium text-gray-700">Foto Barang</label>
-                                <!-- <input type="file" name="foto_barang" id="foto_barang" class="form-control"> -->
-                                <input type="file" name="foto_barang" id="foto_barang" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 white:text-gray-400 focus:outline-none white:bg-gray-700 white:border-gray-600 white:placeholder-gray-400">
-                                    <p class="mt-1 text-sm text-gray-500 white:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+                                <label for="foto_barang" class="block text-sm font-medium text-gray-700">Foto Barang</label>
+                                <input type="file" name="foto_barang" id="foto_barang" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:border-green-500 focus:ring-green-500">
+                                <p class="mt-1 text-lg text-gray-500">SVG, PNG, JPG, or GIF (MAX. 800x400px).</p>
                                 <div id="progress-bar-container" class="mt-2" style="display:none;">
-                                    <div id="progress-bar" class="progress-bar bg-blue-500 h-2 rounded" style="width: 0%;"></div>
+                                    <div id="progress-bar" class="progress-bar bg-green-500 h-2 rounded" style="width: 0%;"></div>
                                 </div>
                                 @error('foto_barang')
-                                    <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
+                                    <div class="text-red-500 mt-2 text-lg">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary">Tambah Barang</button>
+                            <div class="modal-footer ">
+                                <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition duration-300 ease-in-out transform hover:scale-105" data-bs-dismiss="modal">Tutup</button>
+                                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105">Tambah Barang</button>
                             </div>
                         </form>
                     </div>
@@ -170,55 +170,55 @@
 
                                 <!-- Modal Edit Barang -->
                                 <div class="modal fade" id="editModal-{{ $barang->id }}" tabindex="-1" aria-labelledby="editModalLabel-{{ $barang->id }}" aria-hidden="true">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                                         <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="editModalLabel-{{ $barang->id }}">Edit Barang</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <div class="modal-header bg-gradient-to-b from-sky-400 to-indigo-500 text-white rounded-t-lg shadow-md">
+                                                <h5 class="modal-title font-semibold" id="editModalLabel-{{ $barang->id }}">Edit Barang</h5>
+                                                <button type="button" class="btn-close text-white bg-transparent hover:bg-red-600 hover:rounded-full transition duration-300 ease-in-out" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">
-                                                <!-- Form Edit -->
+                                            <div class="modal-body bg-gray-50 p-6 rounded-b-lg" style="text-align: left;">
+                                                <!-- Form Edit Barang -->
                                                 <form id="formEditBarang-{{ $barang->id }}" action="{{ route('barang.update', $barang->id) }}" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
 
                                                     <div class="mb-4">
-                                                        <label class="block text-gray-700">Nama Barang</label>
-                                                        <input type="text" name="nama_barang" value="{{ old('nama_barang', $barang->nama_barang) }}" class="form-control">
+                                                        <label for="nama_barang" class="block text-lg font-medium text-gray-700">Nama Barang</label>
+                                                        <input type="text" name="nama_barang" id="nama_barang" value="{{ old('nama_barang', $barang->nama_barang) }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm" placeholder="Masukkan nama barang" required>
                                                         @error('nama_barang')
                                                             <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                                                         @enderror
                                                     </div>
 
                                                     <div class="mb-4">
-                                                        <label class="block text-gray-700">Nama Instansi</label>
-                                                        <input type="text" name="nama_instansi" value="{{ old('nama_instansi', $barang->nama_instansi) }}" class="form-control">
+                                                        <label for="nama_instansi" class="block text-lg font-medium text-gray-700">Nama Instansi</label>
+                                                        <input type="text" name="nama_instansi" id="nama_instansi" value="{{ old('nama_instansi', $barang->nama_instansi) }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm" placeholder="Masukkan nama instansi" required>
                                                         @error('nama_instansi')
                                                             <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                                                         @enderror
                                                     </div>
 
                                                     <div class="mb-4">
-                                                        <label class="block text-gray-700">Tanggal Kirim</label>
-                                                        <input type="date" name="tanggal_kirim" value="{{ old('tanggal_kirim', $barang->tanggal_kirim) }}" class="form-control">
+                                                        <label for="tanggal_kirim" class="block text-lg font-medium text-gray-700">Tanggal Kirim</label>
+                                                        <input type="date" name="tanggal_kirim" id="tanggal_kirim" value="{{ old('tanggal_kirim', $barang->tanggal_kirim) }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm" required>
                                                         @error('tanggal_kirim')
                                                             <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                                                         @enderror
                                                     </div>
 
                                                     <div class="mb-4">
-                                                        <label class="block text-gray-700">Alamat Instansi</label>
-                                                        <input type="text" name="alamat_instansi" value="{{ old('alamat_instansi', $barang->alamat_instansi) }}" class="form-control">
+                                                        <label for="alamat_instansi" class="block text-lg font-medium text-gray-700">Alamat Instansi</label>
+                                                        <input type="text" name="alamat_instansi" id="alamat_instansi" value="{{ old('alamat_instansi', $barang->alamat_instansi) }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm" placeholder="Masukkan alamat instansi" required>
                                                         @error('alamat_instansi')
                                                             <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                                                         @enderror
                                                     </div>
 
                                                     <div class="mb-4">
-                                                        <label class="block text-gray-700">Jenis Barang</label>
-                                                        <select name="jenis_barang" class="form-control">
+                                                        <label for="jenis_barang" class="block text-lg font-medium text-gray-700">Jenis Barang</label>
+                                                        <select name="jenis_barang" id="jenis_barang" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm" required>
                                                             @foreach($jenis_barangs as $jenis)
-                                                                <option value="{{ $jenis->jenis_barang }}" {{ old('jenis_barang', $barang->jenis_barang ?? '') == $jenis->jenis_barang ? 'selected' : '' }}>
+                                                                <option value="{{ $jenis->jenis_barang }}" {{ old('jenis_barang', $barang->jenis_barang) == $jenis->jenis_barang ? 'selected' : '' }}>
                                                                     {{ $jenis->jenis_barang }}
                                                                 </option>
                                                             @endforeach
@@ -229,10 +229,11 @@
                                                     </div>
 
                                                     <div class="mb-4">
-                                                        <label class="block text-gray-700">Foto Barang</label>
-                                                        <input type="file" name="foto_barang" id="foto_barang_edit_{{ $barang->id }}" class="form-control">
+                                                        <label for="foto_barang" class="block text-lg font-medium text-gray-700">Foto Barang</label>
+                                                        <input type="file" name="foto_barang" id="foto_barang_edit_{{ $barang->id }}" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:border-green-500 focus:ring-green-500">
+                                                        <p class="mt-1 text-sm text-gray-500">SVG, PNG, JPG, or GIF (MAX. 800x400px).</p>
                                                         <div id="progress-bar-container-edit-{{ $barang->id }}" class="mt-2" style="display:none;">
-                                                            <div id="progress-bar-edit-{{ $barang->id }}" class="progress-bar bg-blue-500 h-2 rounded" style="width: 0%;"></div>
+                                                            <div id="progress-bar-edit-{{ $barang->id }}" class="progress-bar bg-green-500 h-2 rounded" style="width: 0%;"></div>
                                                         </div>
                                                         @error('foto_barang')
                                                             <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
@@ -242,13 +243,13 @@
                                                     @if ($barang->foto_barang)
                                                         <div class="mb-4">
                                                             <label class="block text-gray-700">Foto Saat Ini</label>
-                                                            <img src="{{ asset('storage/' . $barang->foto_barang) }}" alt="Foto {{ $barang->nama_barang }}" class="h-16 w-16 object-cover">
+                                                            <img src="{{ asset('storage/' . $barang->foto_barang) }}" alt="Foto {{ $barang->nama_barang }}" class="h-16 w-16 object-cover rounded">
                                                         </div>
                                                     @endif
 
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                                        <button type="submit" class="btn btn-primary">Update Barang</button>
+                                                        <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition duration-300 ease-in-out transform hover:scale-105" data-bs-dismiss="modal">Tutup</button>
+                                                        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105">Update Barang</button>
                                                     </div>
                                                 </form>
                                             </div>

@@ -45,45 +45,47 @@
 
         <!-- Modal Tambah Kurir -->
         <div class="modal fade" id="addKurirModal" tabindex="-1" aria-labelledby="addKurirModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addKurirModalLabel">Tambah Kurir</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-header bg-gradient-to-b from-blue-500 to-indigo-600 text-white rounded-t-lg shadow-md">
+                        <h5 class="modal-title font-semibold" id="addKurirModalLabel">Tambah Kurir</h5>
+                        <button type="button" class="btn-close text-white bg-transparent hover:bg-red-600 hover:rounded-full transition duration-300 ease-in-out" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body bg-gray-50 p-6 rounded-b-lg">
                         <form action="{{ route('kurir.store') }}" method="POST">
                             @csrf
                             <div class="mb-4">
-                                <label for="nama" class="form-label">Nama</label>
-                                <input type="text" class="form-control" id="nama" name="nama" required>
+                                <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
+                                <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan nama kurir" required>
                             </div>
                             <div class="mb-4">
-                                <label for="alamat" class="form-label">Alamat</label>
-                                <input type="text" class="form-control" id="alamat" name="alamat" required>
+                                <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat</label>
+                                <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukkan alamat kurir" required>
                             </div>
                             <div class="mb-4">
-                                <label for="umur" class="form-label">Umur</label>
-                                <input type="number" class="form-control" id="umur" name="umur" required>
+                                <label for="umur" class="block text-sm font-medium text-gray-700">Umur</label>
+                                <input type="number" class="form-control" id="umur" name="umur" placeholder="Masukkan umur kurir" required>
                             </div>
                             <div class="mb-4">
-                                <label for="gender" class="form-label">Gender</label>
+                                <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
                                 <select class="form-control" id="gender" name="gender" required>
+                                    <option value="" disabled selected>Pilih gender...</option>
                                     <option value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
                             </div>
                             <div class="mb-4">
-                                <label for="jenis_barang" class="form-label">Jenis Barang</label>
+                                <label for="jenis_barang" class="block text-sm font-medium text-gray-700">Jenis Barang</label>
                                 <select class="form-control" id="jenis_barang" name="jenis_barang" required>
+                                    <option value="" disabled selected>Pilih jenis barang...</option>
                                     @foreach ($jenis_barangs as $jenis_barang)
-                                        <option value="{{ $jenis_barang->id }}">{{ $jenis_barang->jenis_barang}}</option>
+                                        <option value="{{ $jenis_barang->id }}">{{ $jenis_barang->jenis_barang }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition duration-300 ease-in-out transform hover:scale-105" data-bs-dismiss="modal">Tutup</button>
+                                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105">Simpan</button>
                             </div>
                         </form>
                     </div>
@@ -131,7 +133,7 @@
                         <div class="modal fade" id="editKurirModal-{{ $kurir->id }}" tabindex="-1" aria-labelledby="editKurirModalLabel-{{ $kurir->id }}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <div class="modal-header">
+                                    <div class="modal-header bg-gradient-to-b from-blue-500 to-indigo-600 text-white rounded-t-lg shadow-md">
                                         <h5 class="modal-title" id="editKurirModalLabel-{{ $kurir->id }}">Edit Kurir</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
@@ -140,26 +142,26 @@
                                             @csrf
                                             @method('PUT')
                                             <div class="mb-4">
-                                                <label for="nama-{{ $kurir->id }}" class="form-label">Nama</label>
+                                                <label for="nama-{{ $kurir->id }}" class="block text-sm font-medium text-gray-700">Nama</label>
                                                 <input type="text" class="form-control" id="nama-{{ $kurir->id }}" name="nama" value="{{ $kurir->nama }}" required>
                                             </div>
                                             <div class="mb-4">
-                                                <label for="alamat-{{ $kurir->id }}" class="form-label">Alamat</label>
+                                                <label for="alamat-{{ $kurir->id }}" class="block text-sm font-medium text-gray-700">Alamat</label>
                                                 <input type="text" class="form-control" id="alamat-{{ $kurir->id }}" name="alamat" value="{{ $kurir->alamat }}" required>
                                             </div>
                                             <div class="mb-4">
-                                                <label for="umur-{{ $kurir->id }}" class="form-label">Umur</label>
+                                                <label for="umur-{{ $kurir->id }}" class="block text-sm font-medium text-gray-700">Umur</label>
                                                 <input type="number" class="form-control" id="umur-{{ $kurir->id }}" name="umur" value="{{ $kurir->umur }}" required>
                                             </div>
                                             <div class="mb-4">
-                                                <label for="gender-{{ $kurir->id }}" class="form-label">Gender</label>
+                                                <label for="gender-{{ $kurir->id }}" class="block text-sm font-medium text-gray-700">Gender</label>
                                                 <select class="form-control" id="gender-{{ $kurir->id }}" name="gender" required>
                                                     <option value="Laki-laki" {{ $kurir->gender == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                                                     <option value="Perempuan" {{ $kurir->gender == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                                                 </select>
                                             </div>
                                             <div class="mb-4">
-                                                <label for="jenis_barang-{{ $kurir->id }}" class="form-label">Jenis Barang</label>
+                                                <label for="jenis_barang-{{ $kurir->id }}" class="block text-sm font-medium text-gray-700">Jenis Barang</label>
                                                 <select class="form-control" id="jenis_barang-{{ $kurir->id }}" name="jenis_barang" required>
                                                     @foreach ($jenis_barangs as $jenis_barang)
                                                         <option value="{{ $jenis_barang->id }}" {{ $kurir->jenis_barang == $jenis_barang->id ? 'selected' : '' }}>{{ $jenis_barang->jenis_barang }}</option>

@@ -114,8 +114,8 @@
 			<!-- Row -->
 			<div class="w-full xl:w-3/4 lg:w-11/12 flex">
 				<!-- Col -->
-				<div class="w-full h-auto bg-gray-400 dark:bg-gray-800 hidden lg:block lg:w-5/7 bg-cover rounded-l-lg"
-					style="background-image: url('storage/images/logo2.png')"></div>
+				<div class="w-full h-auto bg-gray-400 dark:bg-gray-800 hidden lg:block lg:w-5/6 bg-cover rounded-l-lg"
+                    style="background-image: url('storage/images/logo2.png'); background-repeat: no-repeat; background-size: contain; background-position: center;"></div>
 				<!-- Col -->
 				<div class="w-full lg:w-7/12 bg-white dark:bg-gray-700 p-5 rounded-lg lg:rounded-l-none">
 					<h3 class="py-4 text-2xl text-center text-gray-800 dark:text-black">Create an Account!</h3>

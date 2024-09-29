@@ -83,31 +83,6 @@
     </div>
 @endif
 
-@if ($errors->any())
-    <div id="errors-popup" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-            <div class="flex items-center">
-                <svg class="w-6 h-6 mr-2 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M8.257 3.099c.366-.446 1.077-.513 1.59-.131l.094.083 7 7a1 1 0 01-1.32 1.497l-.094-.083L9 5.415 2.757 11.657a1 1 0 01-1.32-1.497l.094-.083 7-7z"/>
-                </svg>
-                <span class="text-red-700 font-semibold">Error:</span>
-            </div>
-            <div class="mt-4">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            <div class="mt-6 text-right">
-                <button onclick="closePopup('errors-popup')" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">
-                    Close
-                </button>
-            </div>
-        </div>
-    </div>
-@endif
-
 	<!-- Container -->
 	<div class="mx-auto">
 		<div class="flex justify-center px-6 py-12">
@@ -130,7 +105,7 @@
                                 id="name"
                                 type="text"
                                 name="name"
-                                placeholder="name"
+                                placeholder="Name"
                                 required autofocus
                             />
 						</div>

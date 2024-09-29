@@ -140,7 +140,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('status-pengiriman') }}" class="block py-2 hover:bg-gradient-to-r from-sky-600 rounded">
+                                            <a href="{{ route('pengiriman.status') }}" class="block py-2 hover:bg-gradient-to-r from-sky-600 rounded">
                                                 <i class="fas fa-shipping-fast mr-2"></i> Status Pengiriman
                                             </a>
                                         </li>
@@ -150,7 +150,7 @@
                         </li>
                         <!-- Histori Pengiriman -->
                         <li class="p-4 hover:bg-gradient-to-r from-sky-300 to-indigo-700 transition duration-300">
-                            <a href="{{ route('histori-pengiriman') }}" class="flex items-center rounded">
+                            <a href="{{ route('pengiriman.histori') }}" class="flex items-center rounded">
                                 <i class="fas fa-history mr-2"></i> Histori Pengiriman
                             </a>
                         </li>

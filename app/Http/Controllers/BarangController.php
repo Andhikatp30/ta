@@ -20,18 +20,18 @@ class BarangController extends Controller
                 ->orWhere('jenis_barang', 'LIKE', "%{$search}%")
                 ->orWhere('id_barang', 'LIKE', "%{$search}%");
         }
-
-        $barangs = $query->paginate(10);
+        $perPage = $request->input('per_page', 5);
+        $barangs = $query->paginate($perPage);
         $jenis_barangs = JenisBarang::all();  // Pastikan untuk mengambil data jenis barang
 
         return view('barang.index', compact('barangs', 'jenis_barangs')); // Kirimkan $jenis_barangs ke view
     }
 
-    public function create()
-    {
-        $jenis_barangs = JenisBarang::all();
-        return view('barang.create', compact('jenis_barangs'));
-    }
+    // public function create()
+    // {
+    //     $jenis_barangs = JenisBarang::all();
+    //     return view('barang.create', compact('jenis_barangs'));
+    // }
 
     public function store(Request $request)
     {
@@ -63,11 +63,11 @@ class BarangController extends Controller
         return redirect()->route('barang.index')->with('success', 'Barang berhasil ditambahkan.');
     }
 
-    public function edit(Barang $barang)
-    {
-        $jenis_barangs = JenisBarang::all();
-        return view('barang.edit', compact('barang', 'jenis_barangs'));
-    }
+    // public function edit(Barang $barang)
+    // {
+    //     $jenis_barangs = JenisBarang::all();
+    //     return view('barang.edit', compact('barang', 'jenis_barangs'));
+    // }
 
     public function update(Request $request, Barang $barang)
     {

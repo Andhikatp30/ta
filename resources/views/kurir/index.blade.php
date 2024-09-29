@@ -180,6 +180,27 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="flex items-center justify-between py-3 px-4 bg-white border-t border-gray-200">
+                <div class="flex items-center">
+                    <span class="text-sm text-gray-700">Rows per page: </span>
+                    <select class="ml-2 form-select rounded border-gray-300" onchange="window.location.href=this.value">
+                        @foreach([5, 10, 15, 20] as $size)
+                            <option value="{{ request()->fullUrlWithQuery(['per_page' => $size]) }}" {{ $kurirs->perPage() == $size ? 'selected' : '' }}>
+                                {{ $size }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="flex items-center">
+                    <span class="text-sm text-gray-700">Showing {{ $kurirs->firstItem() }} to {{ $kurirs->lastItem() }} of {{ $kurirs->total() }}</span>
+                </div>
+
+                <div class="flex items-center">
+                    <a href="{{ $kurirs->previousPageUrl() }}" class="p-2 text-sm text-gray-500 hover:text-blue-500 {{ $kurirs->onFirstPage() ? 'cursor-not-allowed' : '' }}" aria-disabled="{{ $kurirs->onFirstPage() }}">&#9664;</a>
+                    <a href="{{ $kurirs->nextPageUrl() }}" class="ml-2 p-2 text-sm text-gray-500 hover:text-blue-500 {{ !$kurirs->hasMorePages() ? 'cursor-not-allowed' : '' }}" aria-disabled="{{ !$kurirs->hasMorePages() }}">&#9654;</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

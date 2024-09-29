@@ -19,7 +19,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Group routes that require authentication
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // profile
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
@@ -36,6 +36,6 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/pengiriman/{id}', [PengirimanController::class, 'update'])->name('pengiriman.update');
     Route::delete('/pengiriman/{id}', [PengirimanController::class, 'destroy'])->name('pengiriman.destroy');
     
-    Route::get('/status-pengiriman', [PengirimanController::class, 'status'])->name('status-pengiriman');
-    Route::get('/histori-pengiriman', [PengirimanController::class, 'histori'])->name('histori-pengiriman');
-});
+    Route::get('/status-pengiriman', [PengirimanController::class, 'status'])->name('pengiriman.status');
+    Route::get('/histori-pengiriman', [PengirimanController::class, 'histori'])->name('pengiriman.histori');
+}); 

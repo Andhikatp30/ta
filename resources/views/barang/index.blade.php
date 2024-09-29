@@ -183,40 +183,40 @@
                                                     @method('PUT')
 
                                                     <div class="mb-4">
-                                                        <label for="nama_barang" class="block text-lg font-medium text-gray-700">Nama Barang</label>
-                                                        <input type="text" name="nama_barang" id="nama_barang" value="{{ old('nama_barang', $barang->nama_barang) }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm" placeholder="Masukkan nama barang" required>
+                                                        <label for="nama_barang" class="block text-sm font-medium text-gray-700">Nama Barang</label>
+                                                        <input type="text" name="nama_barang" id="nama_barang" value="{{ old('nama_barang', $barang->nama_barang) }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-lg" placeholder="Masukkan nama barang" required>
                                                         @error('nama_barang')
                                                             <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                                                         @enderror
                                                     </div>
 
                                                     <div class="mb-4">
-                                                        <label for="nama_instansi" class="block text-lg font-medium text-gray-700">Nama Instansi</label>
-                                                        <input type="text" name="nama_instansi" id="nama_instansi" value="{{ old('nama_instansi', $barang->nama_instansi) }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm" placeholder="Masukkan nama instansi" required>
+                                                        <label for="nama_instansi" class="block text-sm font-medium text-gray-700">Nama Instansi</label>
+                                                        <input type="text" name="nama_instansi" id="nama_instansi" value="{{ old('nama_instansi', $barang->nama_instansi) }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-lg" placeholder="Masukkan nama instansi" required>
                                                         @error('nama_instansi')
                                                             <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                                                         @enderror
                                                     </div>
 
                                                     <div class="mb-4">
-                                                        <label for="tanggal_kirim" class="block text-lg font-medium text-gray-700">Tanggal Kirim</label>
-                                                        <input type="date" name="tanggal_kirim" id="tanggal_kirim" value="{{ old('tanggal_kirim', $barang->tanggal_kirim) }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm" required>
+                                                        <label for="tanggal_kirim" class="block text-sm font-medium text-gray-700">Tanggal Kirim</label>
+                                                        <input type="date" name="tanggal_kirim" id="tanggal_kirim" value="{{ old('tanggal_kirim', $barang->tanggal_kirim) }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-lg" required>
                                                         @error('tanggal_kirim')
                                                             <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                                                         @enderror
                                                     </div>
 
                                                     <div class="mb-4">
-                                                        <label for="alamat_instansi" class="block text-lg font-medium text-gray-700">Alamat Instansi</label>
-                                                        <input type="text" name="alamat_instansi" id="alamat_instansi" value="{{ old('alamat_instansi', $barang->alamat_instansi) }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm" placeholder="Masukkan alamat instansi" required>
+                                                        <label for="alamat_instansi" class="block text-sm font-medium text-gray-700">Alamat Instansi</label>
+                                                        <input type="text" name="alamat_instansi" id="alamat_instansi" value="{{ old('alamat_instansi', $barang->alamat_instansi) }}" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-lg" placeholder="Masukkan alamat instansi" required>
                                                         @error('alamat_instansi')
                                                             <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
                                                         @enderror
                                                     </div>
 
                                                     <div class="mb-4">
-                                                        <label for="jenis_barang" class="block text-lg font-medium text-gray-700">Jenis Barang</label>
-                                                        <select name="jenis_barang" id="jenis_barang" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm" required>
+                                                        <label for="jenis_barang" class="block text-sm font-medium text-gray-700">Jenis Barang</label>
+                                                        <select name="jenis_barang" id="jenis_barang" class="block w-full mt-1 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-lg" required>
                                                             @foreach($jenis_barangs as $jenis)
                                                                 <option value="{{ $jenis->jenis_barang }}" {{ old('jenis_barang', $barang->jenis_barang) == $jenis->jenis_barang ? 'selected' : '' }}>
                                                                     {{ $jenis->jenis_barang }}
@@ -229,7 +229,7 @@
                                                     </div>
 
                                                     <div class="mb-4">
-                                                        <label for="foto_barang" class="block text-lg font-medium text-gray-700">Foto Barang</label>
+                                                        <label for="foto_barang" class="block text-sm font-medium text-gray-700">Foto Barang</label>
                                                         <input type="file" name="foto_barang" id="foto_barang_edit_{{ $barang->id }}" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:border-green-500 focus:ring-green-500">
                                                         <p class="mt-1 text-sm text-gray-500">SVG, PNG, JPG, or GIF (MAX. 800x400px).</p>
                                                         <div id="progress-bar-container-edit-{{ $barang->id }}" class="mt-2" style="display:none;">
@@ -268,6 +268,29 @@
                     @endforeach
                 </tbody>
             </table>
+            <!-- Pagination Links -->
+            <div class="flex items-center justify-between py-3 px-4 bg-white border-t border-gray-200">
+                <div class="flex items-center">
+                    <span class="text-sm text-gray-700">Rows per page: </span>
+                    <select class="ml-2 form-select rounded border-gray-300" onchange="window.location.href=this.value">
+                        @foreach([5, 10, 15, 20] as $size)
+                            <!-- Update the URL with the new 'per_page' value -->
+                            <option value="{{ request()->fullUrlWithQuery(['per_page' => $size]) }}" {{ $barangs->perPage() == $size ? 'selected' : '' }}>
+                                {{ $size }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="flex items-center">
+                    <span class="text-sm text-gray-700">Showing {{ $barangs->firstItem() }} to {{ $barangs->lastItem() }} of {{ $barangs->total() }}</span>
+                </div>
+
+                <div class="flex items-center">
+                    <a href="{{ $barangs->previousPageUrl() }}" class="p-2 text-sm text-gray-500 hover:text-blue-500 {{ $barangs->onFirstPage() ? 'cursor-not-allowed' : '' }}" aria-disabled="{{ $barangs->onFirstPage() }}">&#9664;</a>
+                    <a href="{{ $barangs->nextPageUrl() }}" class="ml-2 p-2 text-sm text-gray-500 hover:text-blue-500 {{ !$barangs->hasMorePages() ? 'cursor-not-allowed' : '' }}" aria-disabled="{{ !$barangs->hasMorePages() }}">&#9654;</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

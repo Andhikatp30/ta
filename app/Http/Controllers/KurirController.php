@@ -12,14 +12,17 @@ class KurirController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $perPage = $request->input('per_page', 5);
 
         $kurirs = Kurir::query()
             ->when($search, function($query, $search) {
                 return $query->where('nama', 'like', "%{$search}%")
                             ->orWhere('alamat', 'like', "%{$search}%")
+                            ->orWhere('umur', 'like', "%{$search}%")
+                            ->orWhere('gender', 'like', "%{$search}%")
                             ->orWhere('kurir_id', 'like', "%{$search}%");
             })
-            ->get();
+            ->paginate($perPage);
 
         $jenis_barangs = JenisBarang::all();  // Pastikan untuk mengambil data jenis barang
         return view('kurir.index', compact('kurirs', 'jenis_barangs'));

@@ -14,7 +14,7 @@ class PengirimanController extends Controller
     {
         $barangs = Barang::all();
         $kurirs = Kurir::all();
-        $pengirimens = Pengiriman::with('barang', 'kurir')->get(); // Ambil data pengiriman
+        $pengirimens = Pengiriman::with('barang', 'kurir')->paginate(request('per_page', 5)); // Use pagination and check for 'per_page' request
 
         return view('pengiriman.create', compact('barangs', 'kurirs', 'pengirimens'));
     }
@@ -37,14 +37,14 @@ class PengirimanController extends Controller
         return redirect()->route('pengiriman.create')->with('success', 'Pengiriman berhasil ditambahkan.');
     }
 
-    public function edit($id)
-    {
-        $pengiriman = Pengiriman::findOrFail($id);
-        $barangs = Barang::all();
-        $kurirs = Kurir::all();
+    // public function edit($id)
+    // {
+    //     $pengiriman = Pengiriman::findOrFail($id);
+    //     $barangs = Barang::all();
+    //     $kurirs = Kurir::all();
         
-        return view('pengiriman.edit', compact('pengiriman', 'barangs', 'kurirs'));
-    }
+    //     return view('pengiriman.edit', compact('pengiriman', 'barangs', 'kurirs'));
+    // }
 
     public function update(Request $request, $id)
     {
@@ -72,15 +72,74 @@ class PengirimanController extends Controller
         return redirect()->route('pengiriman.create')->with('success', 'Pengiriman berhasil dihapus.');
     }
 
-    public function status()
+    public function status(Request $request)
     {
-        $pengirimens = Pengiriman::with('barang', 'kurir')->get();
+        $query = Pengiriman::with('barang', 'kurir');
+
+        // Filter based on combined input of ID Pengiriman or ID Barang
+        if ($request->filled('id_combined')) {
+            $query->where('id_pengiriman', 'like', '%' . $request->id_combined . '%')
+                ->orWhereHas('barang', function ($q) use ($request) {
+                    $q->where('id_barang', 'like', '%' . $request->id_combined . '%')
+                    ->orwhere('nama_barang', 'like', '%' . $request->id_combined . '%');
+                })
+                ->orWhereHas('kurir', function ($q) use ($request) {
+                    $q->where('nama', 'like', '%' . $request->id_combined . '%');
+                });
+        }
+
+        // Filter berdasarkan tanggal pengiriman
+        if ($request->filled('tanggal_kirim')) {
+            $query->whereHas('barang', function ($q) use ($request) {
+                $q->whereDate('tanggal_kirim', $request->tanggal_kirim);
+            });
+        }
+
+        // Filter berdasarkan status pengiriman
+        if ($request->filled('status_pengiriman')) {
+            $query->where('status_pengiriman', 'like', '%' . $request->status_pengiriman . '%');
+        }
+
+        $pengirimens = $query->paginate($request->get('per_page', 5));
+        
         return view('pengiriman.status', compact('pengirimens'));
     }
 
-    public function histori()
+    public function histori(Request $request)
     {
-        $pengirimens = Pengiriman::with('barang', 'kurir')->get();
+        $query = Pengiriman::with('barang', 'kurir');
+
+        // Combined Filter for ID Pengiriman, ID Barang, Nama Kurir, Nama Barang, and Alamat Instansi
+        if ($request->filled('id_combined')) {
+            $searchTerm = '%' . $request->id_combined . '%';
+
+            $query->where('id_pengiriman', 'like', $searchTerm)
+                ->orWhereHas('barang', function ($q) use ($searchTerm) {
+                    $q->where('id_barang', 'like', $searchTerm)
+                    ->orWhere('nama_barang', 'like', $searchTerm)
+                    ->orWhere('alamat_instansi', 'like', $searchTerm);
+                })
+                ->orWhereHas('kurir', function ($q) use ($searchTerm) {
+                    $q->where('nama', 'like', $searchTerm);
+                });
+        }
+
+        // Filter by Tanggal Kirim
+        if ($request->filled('tanggal_kirim')) {
+            $query->whereHas('barang', function ($q) use ($request) {
+                $q->whereDate('tanggal_kirim', $request->tanggal_kirim);
+            });
+        }
+
+        // Filter by Status Pengiriman
+        if ($request->filled('status_pengiriman')) {
+            $query->where('status_pengiriman', $request->status_pengiriman);
+        }
+
+        // Paginate the results
+        $pengirimens = $query->paginate($request->get('per_page', 5));
+
+        // Return the view with filtered data
         return view('pengiriman.histori', compact('pengirimens'));
     }
 }
